@@ -11,10 +11,12 @@ namespace PizzaWebApp.Models
     public class ResLocation
     {
         [DisplayName("#")]
-        public int LocationId { get; set; } = 1;
-        public int Zipcode { get; set; }
+        public int LocationId { get; set; } = 0;
+        public int? Zipcode { get; set; }
         public string State { get; set; }
         public string City { get; set; }
+
+        [DisplayName("Restaurant:")]
         public string ResName { get; set; }
 
     }

@@ -25,7 +25,7 @@ namespace PizzaWebApp.Models
         [DisplayName("Username")]
         [Required(ErrorMessage = "Username cannot be blank")]
         [StringLength(32,ErrorMessage ="Min Length:6, Max Length:32", MinimumLength = 6)]
-        public string Username { get; set; }
+        public string Username { get    ; set; }
         public int userid { get; set; }
 
         [DisplayName("First name")]

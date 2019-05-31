@@ -33,6 +33,21 @@ namespace PizzaWebApp.Controllers
             return View(userlist);  
         }
         //=============================================================
+
+        public IActionResult Show()
+        {
+            var users = db.getUsers();
+            foreach (var user in users)
+            {
+                u = new Models.UserInfo();
+                u.Name = user.GetName(user.firstname, user.lastname);
+                u.Phonenumber = user.phonenumber;
+                u.Username = user.username;
+                u.Num = user.userId;
+                userlist.Add(u);
+            }
+            return View(userlist);
+        }
         [HttpGet]
         public ActionResult Create()
         {
@@ -83,8 +98,8 @@ namespace PizzaWebApp.Controllers
             {
                 //ought to redirect to pizzabuy
 
-                if (db.Login(dmc.username, dmc.password) == 1)
-                    return Content("str");
+                if (db.Login(dmc.username, dmc.password) != 0)
+                    return RedirectToRoute(new { controller = "Restaurant", action = "Index" });
                 else
                     return View();
             }

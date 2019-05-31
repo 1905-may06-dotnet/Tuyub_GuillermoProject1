@@ -39,8 +39,8 @@ namespace PizzaWebApp
 
             //add these in when mapper is done for the pages to properly work.
 
-            services.AddScoped<ILocationRepository, LocationRepository>();
-            //services.AddScoped<IPizzaLogicRepo, PizzaLogicRepo>();
+            services.AddScoped<ILocationRepository,LocationRepository>();
+            services.AddScoped<IPizzaLogicRepo, PizzaLogicRepo>();
             services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_2);
             services.AddDbContext<pizzadb_gtContext>(optionsAction=>
             optionsAction.UseSqlServer(Configuration.GetConnectionString("pizzadb_gtContext")));
