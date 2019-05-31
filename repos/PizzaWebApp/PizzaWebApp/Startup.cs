@@ -36,8 +36,10 @@ namespace PizzaWebApp
             });
 
             services.AddScoped<IUserInfoRepo, UserInfoRepo>();
+
             //add these in when mapper is done for the pages to properly work.
-            //services.AddScoped<ILocationRepository, LocationRepository>();
+
+            services.AddScoped<ILocationRepository, LocationRepository>();
             //services.AddScoped<IPizzaLogicRepo, PizzaLogicRepo>();
             services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_2);
             services.AddDbContext<pizzadb_gtContext>(optionsAction=>
@@ -66,7 +68,7 @@ namespace PizzaWebApp
             {
                 routes.MapRoute(
                     name: "default",
-                    template: "{controller=Home}/{action=Index}/{id?}");
+                    template: "{controller=User}/{action=Index}/{id?}");
             });
         }
     }

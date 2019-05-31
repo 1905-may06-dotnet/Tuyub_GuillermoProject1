@@ -33,3 +33,6 @@ C:\Users\guill\source\repos\PizzaWebApp\PizzaWebApp\bin\Debug\netcoreapp2.2\Doma
 C:\Users\guill\source\repos\PizzaWebApp\PizzaWebApp\bin\Debug\netcoreapp2.2\Data.pdb
 C:\Users\guill\source\repos\PizzaWebApp\PizzaWebApp\bin\Debug\netcoreapp2.2\Domain.pdb
 C:\Users\guill\source\repos\PizzaWebApp\PizzaWebApp\obj\Debug\netcoreapp2.2\Razor\Views\User\Index.g.cshtml.cs
+C:\Users\guill\source\repos\PizzaWebApp\PizzaWebApp\obj\Debug\netcoreapp2.2\Razor\Views\User\Create.g.cshtml.cs
+C:\Users\guill\source\repos\PizzaWebApp\PizzaWebApp\obj\Debug\netcoreapp2.2\Razor\Views\User\Delete.g.cshtml.cs
+C:\Users\guill\source\repos\PizzaWebApp\PizzaWebApp\obj\Debug\netcoreapp2.2\Razor\Views\User\Login.g.cshtml.cs
