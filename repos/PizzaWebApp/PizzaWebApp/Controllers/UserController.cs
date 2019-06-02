@@ -99,7 +99,7 @@ namespace PizzaWebApp.Controllers
                 //ought to redirect to pizzabuy
 
                 if (db.Login(dmc.username, dmc.password) != 0)
-                    return RedirectToRoute(new { controller = "Restaurant", action = "Index" });
+                    return RedirectToRoute(new { controller  = "Restaurant", action = "Index" });
                 else
                     return View();
             }

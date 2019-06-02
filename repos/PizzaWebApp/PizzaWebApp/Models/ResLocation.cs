@@ -11,7 +11,7 @@ namespace PizzaWebApp.Models
     public class ResLocation
     {
         [DisplayName("#")]
-        public int LocationId { get; set; } = 0;
+        public int LocationId { get; set; }
         public int? Zipcode { get; set; }
         public string State { get; set; }
         public string City { get; set; }

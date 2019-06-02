@@ -13,15 +13,16 @@ namespace PizzaWebApp.Controllers
     {
         private readonly ILocationRepository db;
         private readonly IPizzaLogicRepo db2;
-
-        public RestaurantController(ILocationRepository db)
+        public RestaurantController(ILocationRepository db, IPizzaLogicRepo db2)
         {
             this.db = db;
+            this.db2 = db2;
         }
         PizzaWebApp.Models.ResLocation loc;
         List<PizzaWebApp.Models.ResLocation> locationlist = new List<PizzaWebApp.Models.ResLocation>();
 
-        public IActionResult Index(int id=0)
+
+        public IActionResult Index()
         {
 
             var locations = db.GetRestaurants();
@@ -30,10 +31,7 @@ namespace PizzaWebApp.Controllers
                 
                 loc = new Models.ResLocation();
                 loc.City = location.City;
-                if (location.locationID == 0)
-                    loc.LocationId = location.locationID;
-                else
-                    loc.LocationId = id;
+                loc.LocationId = location.locationID;
                 loc.ResName = location.ResName;
                 loc.State = location.State;
                 loc.Zipcode = location.Zipcode;
@@ -77,9 +75,9 @@ namespace PizzaWebApp.Controllers
             return View();
         }
         [HttpPost]
-        public ActionResult OrderPizza(IFormCollection collection, PizzaWebApp.Models.PizzaLogic.Orderpizza op)
+        public ActionResult OrderPizza(IFormCollection collection, PizzaWebApp.Models.Orderpizza op)
         {
-            Domain.PizzaLogic.Orderpizza dmc = new Domain.PizzaLogic.Orderpizza();
+            Domain.Orderpizza dmc = new Domain.Orderpizza();
             dmc.orderid = op.orderid;
             dmc.locationfid_op = op.locationfid_op;
             dmc.userFID = op.userFID;
@@ -100,30 +98,44 @@ namespace PizzaWebApp.Controllers
         [HttpGet]
         public ActionResult Pizzabuilder()
         {
-            return View();
+            var ip = new PizzaWebApp.Models.Indiv_pizza();
+            ip.Ingredient0FID = "none";
+            ip.Ingredient1FID = "none";
+            ip.Ingredient2FID = "none";
+            ip.Ingredient3FID = "none";
+            ip.Ingredient4FID = "none";
+            
+            return View(ip);
         }
         [HttpPost]
-        public ActionResult Pizzabuilder(IFormCollection collection, PizzaWebApp.Models.PizzaLogic.Indiv_pizza ip)
-        {
-            Domain.PizzaLogic.Indiv_pizza dmc = new Domain.PizzaLogic.Indiv_pizza();
+        [ValidateAntiForgeryToken]
+        public IActionResult Pizzabuilder(Models.Indiv_pizza ip, int? id)
+        {            
+           
+            Domain.Indiv_pizza dmc = new Domain.Indiv_pizza();
+
             dmc.count = ip.count;
-            dmc.crustFID = ip.crustFID;
-            dmc.Ingredient0FID = ip.Ingredient0FID;
-            dmc.Ingredient1FID = ip.Ingredient1FID;
-            dmc.Ingredient2FID = ip.Ingredient2FID;
-            dmc.Ingredient3FID = ip.Ingredient3FID;
-            dmc.Ingredient4FID = ip.Ingredient4FID;
-            dmc.orderFID = ip.orderFID;
-            dmc.pizzaId = ip.pizzaId;
-            dmc.sizeFID = ip.sizeFID;
+            dmc.crustFID = db2.CrustStringToID(ip.crustFID);
+            dmc.Ingredient0FID = db2.IngredientStringToId(ip.Ingredient0FID);
+            dmc.Ingredient1FID = db2.IngredientStringToId(ip.Ingredient1FID);
+            dmc.Ingredient2FID = db2.IngredientStringToId(ip.Ingredient2FID);
+            dmc.Ingredient3FID = db2.IngredientStringToId(ip.Ingredient3FID);
+            dmc.Ingredient4FID = db2.IngredientStringToId(ip.Ingredient4FID);
+            dmc.orderFID = id;
+            //dmc.pizzaId = ip.pizzaId;
+            dmc.sizeFID = db2.SizeStringToID(ip.sizeFID);
             dmc.totalcost = ip.totalcost;
+
+
+            //update stock here
+            //update order here
 
 
             try
             {
                 db2.AddPizza(dmc);
                 db2.Save();
-                return RedirectToAction(nameof(Index));
+                return RedirectToAction("Index");
             }
             catch
             {
