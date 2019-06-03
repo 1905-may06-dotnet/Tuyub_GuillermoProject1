@@ -39,3 +39,6 @@ C:\Users\guill\source\repos\PizzaWebApp\PizzaWebApp\obj\Debug\netcoreapp2.2\Razo
 C:\Users\guill\source\repos\PizzaWebApp\PizzaWebApp\obj\Debug\netcoreapp2.2\Razor\Views\Restaurant\Index.g.cshtml.cs
 C:\Users\guill\source\repos\PizzaWebApp\PizzaWebApp\obj\Debug\netcoreapp2.2\Razor\Views\User\Show.g.cshtml.cs
 C:\Users\guill\source\repos\PizzaWebApp\PizzaWebApp\obj\Debug\netcoreapp2.2\Razor\Views\Restaurant\Pizzabuilder.g.cshtml.cs
+C:\Users\guill\source\repos\PizzaWebApp\PizzaWebApp\obj\Debug\netcoreapp2.2\Razor\Views\Restaurant\ShowUsersOrders.g.cshtml.cs
+C:\Users\guill\source\repos\PizzaWebApp\PizzaWebApp\obj\Debug\netcoreapp2.2\Razor\Views\Restaurant\OrderPizza.g.cshtml.cs
+C:\Users\guill\source\repos\PizzaWebApp\PizzaWebApp\obj\Debug\netcoreapp2.2\Razor\Views\Restaurant\Inventory.g.cshtml.cs

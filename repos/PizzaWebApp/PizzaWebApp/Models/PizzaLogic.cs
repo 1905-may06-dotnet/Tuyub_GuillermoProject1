@@ -52,22 +52,23 @@ namespace PizzaWebApp.Models
         [Required(ErrorMessage = "Value cannot be empty")]
         [Range(1,100)]
         public int? count { get; set; }
+        [DisplayName("Order Number")]
         public int? orderFID { get; set; }
         [DisplayName("Total Cost")]
         public decimal? totalcost { get; set; }
         public List<SelectListItem> ingredientlist { get; } = new List<SelectListItem>
         {
         new SelectListItem { Value = "none", Text = "Empty" },
-        new SelectListItem { Value = "chicken", Text = "Chicken" },
-        new SelectListItem { Value = "steak", Text = "Steak"  },
-        new SelectListItem { Value = "bacon", Text = "Bacon"  },
-        new SelectListItem { Value = "pepperoni", Text = "Pepperoni"  },
-        new SelectListItem { Value = "proscuitti", Text = "Proscuitto"  },
-        new SelectListItem { Value = "tomatoes", Text = "Tomatoes"  },
-        new SelectListItem { Value = "garlic", Text = "Garlic"  },
-        new SelectListItem { Value = "onions", Text = "Onions"  },
-        new SelectListItem { Value = "bell peppers", Text = "Bell Peppers"  },
-        new SelectListItem { Value = "ham", Text = "Ham"  },
+        new SelectListItem { Value = "chicken", Text = "Chicken +$1.25" },
+        new SelectListItem { Value = "steak", Text = "Steak +$1.50"  },
+        new SelectListItem { Value = "bacon", Text = "Bacon +$1.25"  },
+        new SelectListItem { Value = "pepperoni", Text = "Pepperoni +$1.25"  },
+        new SelectListItem { Value = "proscuitto", Text = "Proscuitto +$1.75"  },
+        new SelectListItem { Value = "tomatoes", Text = "Tomatoes +$1.25"  },
+        new SelectListItem { Value = "garlic", Text = "Garlic +$1.00"  },
+        new SelectListItem { Value = "onions", Text = "Onions +$1.00"  },
+        new SelectListItem { Value = "bell peppers", Text = "Bell Peppers +$1.00"  },
+        new SelectListItem { Value = "ham", Text = "Ham +$1.25"  },
         };
 
         //crust

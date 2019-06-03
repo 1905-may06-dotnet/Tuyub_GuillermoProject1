@@ -22,9 +22,10 @@ namespace PizzaWebApp.Controllers
         List<PizzaWebApp.Models.ResLocation> locationlist = new List<PizzaWebApp.Models.ResLocation>();
 
 
-        public IActionResult Index()
+        public IActionResult Index(int id)
         {
-
+            TempData["userid"] = id;
+            TempData.Keep("userid");
             var locations = db.GetRestaurants();
             foreach (var location in locations)
             {
@@ -40,34 +41,66 @@ namespace PizzaWebApp.Controllers
             } 
 
             return View(locationlist);
-        }   
-        [HttpGet]
-        public ActionResult Create()
-        {
-            return View();
         }
-        [HttpPost]
-        [ValidateAntiForgeryToken]
-        //POST:Restaurant/Create
-        public ActionResult Create(IFormCollection collection, PizzaWebApp.Models.ResLocation reslocation)
-        {
-            Domain.ResLocation dmc = new ResLocation();
-            dmc.City = reslocation.City;
-            dmc.locationID = reslocation.LocationId;
-            dmc.ResName = reslocation.ResName;
-            dmc.State = reslocation.State;
-            dmc.Zipcode = reslocation.Zipcode;
+        List<Models.Indiv_pizza> pizzalist = new List<Models.Indiv_pizza>();
+        List<Models.Orderpizza> orderlist = new List<Models.Orderpizza>();
 
-            try
+        //[ValidateAntiForgeryToken]
+        //POST:Restaurant/ShowUsersOrders
+        public IActionResult ShowUsersOrders()
+        {
+            
+            //List<Models.Ingredients> ingredientlist = new List<Models.Ingredients>();
+
+            var pizzas = db2.getPizzas();
+            var orders = db2.getOrders();
+            foreach(var order in orders)
             {
-                db.AddLocation(dmc);
-                db.Save();
-                return RedirectToAction(nameof(Index));
+                Models.Orderpizza y = new Models.Orderpizza();
+                y.locationfid_op = order.locationfid_op;
+                y.orderid = order.orderid;
+                y.userFID = order.userFID;
+                y.Timecheck = order.Timecheck;
+                y.Timecheckdefault = order.Timecheckdefault;
+                if (y.locationfid_op == Int32.Parse(TempData["id"].ToString()))
+                {
+                    TempData.Keep("id");
+                    orderlist.Add(y);
+                }
             }
-            catch
+            foreach (var pizza in pizzas)
             {
-                return View();
+                //foreach (var order in orderlist) {
+                    //show pizza ruined from mismatch of indiv pizza in domain/webapp
+                    //alternative show.
+                    Models.Indiv_pizza x = new Models.Indiv_pizza();
+                    x.pizzaId = pizza.pizzaId;
+                    x.crustFID = pizza.crustFID.ToString();
+                    x.sizeFID = pizza.sizeFID.ToString();
+                    x.crustId = pizza.crustFID.GetValueOrDefault(); 
+                    x.crust1 = db2.getCrustById(pizza.crustFID).crust1;
+                    x.totalcost_crust = pizza.totalcost;
+                    x.sizeId = pizza.sizeFID.GetValueOrDefault();
+                    x.size1 = db2.getSizeById(pizza.sizeFID).size1;
+                    x.totalcost_size = pizza.totalcost;
+                    x.Ingredient0FID = pizza.Ingredient0FID.ToString();
+                    x.Ingredient1FID = pizza.Ingredient1FID.ToString();
+                    x.Ingredient2FID = pizza.Ingredient2FID.ToString();
+                    x.Ingredient3FID = pizza.Ingredient3FID.ToString();
+                    x.Ingredient4FID = pizza.Ingredient4FID.ToString();
+                    x.count = pizza.count;
+                    x.orderFID = pizza.orderFID;
+                    x.totalcost = pizza.totalcost;
+
+                    if (db2.getNextOrderId() == x.orderFID.GetValueOrDefault())
+                            pizzalist.Add(x);
+                //}
             }
+            
+            return View(pizzalist);
+
+
+
         }
         [HttpGet]
         public ActionResult OrderPizza()
@@ -78,17 +111,40 @@ namespace PizzaWebApp.Controllers
         public ActionResult OrderPizza(IFormCollection collection, PizzaWebApp.Models.Orderpizza op)
         {
             Domain.Orderpizza dmc = new Domain.Orderpizza();
-            dmc.orderid = op.orderid;
-            dmc.locationfid_op = op.locationfid_op;
-            dmc.userFID = op.userFID;
-            dmc.Timecheck = op.Timecheck;
-            dmc.Timecheckdefault = op.Timecheckdefault;
 
+            dmc.orderid = op.orderid;
+            dmc.locationfid_op = Int32.Parse(TempData["id"].ToString());
+            dmc.userFID = Int32.Parse(TempData["userid"].ToString());
+            dmc.Timecheck = op.Timecheckdefault;
+            //dmc.Timecheckdefault = op.Timecheckdefault;
+            TempData.Keep("userId");
+            TempData.Keep("id");
             try
             {
-                db2.AddOrder(dmc);
-                db2.Save();
-                return RedirectToAction(nameof(Index));
+                if (TempData["userid"] != null)
+                {
+                   // if (((DateTime)op.Timecheckdefault - (DateTime)op.Timecheck).Hours < 24)
+                    //{
+                        db2.AddOrder(dmc);
+                        db2.Save();
+                        TempData.Keep("userId");
+                        return RedirectToAction("Index");
+
+                    //}
+                   // else
+                   // {
+                        //TempData.Keep();
+                        //return View();
+
+                   // }
+                }
+                else
+                {
+                    TempData.Keep();
+                    return View();
+                }
+
+
             }
             catch
             {
@@ -121,26 +177,74 @@ namespace PizzaWebApp.Controllers
             dmc.Ingredient2FID = db2.IngredientStringToId(ip.Ingredient2FID);
             dmc.Ingredient3FID = db2.IngredientStringToId(ip.Ingredient3FID);
             dmc.Ingredient4FID = db2.IngredientStringToId(ip.Ingredient4FID);
-            dmc.orderFID = id;
-            //dmc.pizzaId = ip.pizzaId;
+            //need to set orderid to +1 of largest order id... not the proper way since it has a 
+            dmc.orderFID = db2.getNextOrderId();
+            if(id!=null)
+                TempData["id"] = id;    
+            dmc.pizzaId = ip.pizzaId;
             dmc.sizeFID = db2.SizeStringToID(ip.sizeFID);
-            dmc.totalcost = ip.totalcost;
+            //get price from stringid -> id -> db -> price
+            dmc.totalcost = (db2.getIngredientsById(db2.IngredientStringToId(ip.Ingredient0FID)).cost_ing +
+                db2.getIngredientsById(db2.IngredientStringToId(ip.Ingredient1FID)).cost_ing +
+                db2.getIngredientsById(db2.IngredientStringToId(ip.Ingredient2FID)).cost_ing +
+                db2.getIngredientsById(db2.IngredientStringToId(ip.Ingredient3FID)).cost_ing +
+                db2.getIngredientsById(db2.IngredientStringToId(ip.Ingredient4FID)).cost_ing +
+                db2.getCrustById(db2.CrustStringToID(ip.crustFID)).totalcost_crust +
+                db2.getSizeById(db2.SizeStringToID(ip.sizeFID)).totalcost_size)*ip.count;
+            TempData.Keep("id");
+            if (dmc.totalcost > 5000 || ip.count > 100)
+            {
+                //ought to have message saying cost is over 5000.
+                return View();
+            }
+            IEnumerable<Inventory>  inv = db2.getInventory();
+            foreach(var i in inv)
+            {
+                if (i.resfId == Int32.Parse(TempData["id"].ToString()) && dmc.Ingredient0FID != 14 && (i.FkIngredient == dmc.Ingredient0FID || i.FkIngredient == dmc.Ingredient1FID || i.FkIngredient == dmc.Ingredient2FID || i.FkIngredient == dmc.Ingredient3FID || i.FkIngredient == dmc.Ingredient4FID))
+                {
+                    i.stock = i.stock - ip.count;
+                    db2.UpdateStock(i);
+                    TempData.Keep("id");
+                }
+            }
+            //TempData.Keep();
 
 
-            //update stock here
-            //update order here
 
 
+            //still need to update stock ... this will be done on db.save()
+            //still need to update order ... this will have its own view
             try
             {
                 db2.AddPizza(dmc);
                 db2.Save();
-                return RedirectToAction("Index");
+                return RedirectToAction("OrderPizza");
             }
             catch
             {
                 return View();
             }
+        }
+
+        Models.Inventory x;
+        List<Models.Inventory> invlist = new List<Models.Inventory>();
+
+        public IActionResult Inventory(int id)
+        {
+            var invs = db2.getInventory();
+            foreach (var inv in invs)
+            {
+                x = new Models.Inventory();
+                x.cost_inv = inv.cost_inv;
+                x.FkIngredient = inv.FkIngredient;
+                x.invId = inv.invId;
+                x.resfId = inv.resfId;
+                x.stock = inv.stock;
+                if(id == x.resfId)
+                    invlist.Add(x);
+            }
+            return View(invlist);
+
         }
 
     }

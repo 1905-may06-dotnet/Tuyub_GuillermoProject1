@@ -93,13 +93,13 @@ namespace PizzaWebApp.Controllers
             dmc.username = user.Username;
             dmc.password = user.password;
             dmc.phonenumber = user.Phonenumber;
-
+            dmc.userId = db.getUserId(user.Username);
             try
             {
                 //ought to redirect to pizzabuy
 
-                if (db.Login(dmc.username, dmc.password) != 0)
-                    return RedirectToRoute(new { controller  = "Restaurant", action = "Index" });
+                if (db.Login(dmc.username, dmc.password) != 0 && dmc.userId!=0)
+                    return RedirectToRoute(new { controller  = "Restaurant", action = "Index" , id=dmc.userId});
                 else
                     return View();
             }
