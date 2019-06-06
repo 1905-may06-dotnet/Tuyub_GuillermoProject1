@@ -19,7 +19,7 @@ steps:
   displayName: 'dotnet build $(buildConfiguration)'
 - task: DotNetCoreCLI@2
   inputs:
-    command: 'build'
+    command: 'publish'
     projects: '$(pathtoproject)/*.csproj'
 - task: AzureRmWebAppDeployment@4
   inputs:
