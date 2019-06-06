@@ -11,8 +11,8 @@ pool:
 
 variables:
   buildConfiguration: 'Release'
-  pathtosolution: 'PizzaWebApp'
-  pathtoproject: 'PizzaWebApp/PizzaWebapp'
+  pathtosolution: 'C:\Users\guill\source\repos\PizzaWebApp'
+  pathtoproject: 'C:\Users\guill\source\repos\PizzaWebAppPizzaWebapp'
 
 steps:
 - script: dotnet build --configuration $(buildConfiguration)
