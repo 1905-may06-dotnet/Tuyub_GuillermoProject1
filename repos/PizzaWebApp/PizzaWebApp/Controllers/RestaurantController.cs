@@ -200,13 +200,13 @@ namespace PizzaWebApp.Controllers
             IEnumerable<Inventory>  inv = db2.getInventory();
             foreach(var i in inv)
             {
-                if (i.resfId == Int32.Parse(TempData["id"].ToString()) && dmc.Ingredient0FID != 14 && (i.FkIngredient == dmc.Ingredient0FID || i.FkIngredient == dmc.Ingredient1FID || i.FkIngredient == dmc.Ingredient2FID || i.FkIngredient == dmc.Ingredient3FID || i.FkIngredient == dmc.Ingredient4FID))
+                if (i.resfId == Int32.Parse(TempData["id"].ToString()) && ((i.FkIngredient == dmc.Ingredient0FID && dmc.Ingredient0FID!= 14) || (i.FkIngredient == dmc.Ingredient1FID && dmc.Ingredient1FID!=14) || (i.FkIngredient == dmc.Ingredient2FID&& dmc.Ingredient2FID !=14) || (i.FkIngredient == dmc.Ingredient3FID && dmc.Ingredient3FID !=14) || (i.FkIngredient == dmc.Ingredient4FID &&dmc.Ingredient4FID !=14)))
                 {
                     i.stock = i.stock - ip.count;
                     db2.UpdateStock(i);
                     TempData.Keep("id");
                 }
-            }
+            }   
             //TempData.Keep();
 
 

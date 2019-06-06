@@ -36,6 +36,7 @@ namespace PizzaWebApp.Models
         [Required(ErrorMessage = "Lastname cannot be blank")]
         public string lastname { get; set; }
 
+
         [DisplayName("Password")]
         [Required(ErrorMessage ="Password cannot be blank")]
         [StringLength(32,ErrorMessage ="Min Length: 6, Max Length:32", MinimumLength = 6)]
