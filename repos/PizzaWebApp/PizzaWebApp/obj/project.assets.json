@@ -12973,13 +12973,13 @@
     },
     "Data/1.0.0": {
       "type": "project",
-      "path": "../../../Project1/PizzaBox_gt_copy_1/Data/Data.csproj",
-      "msbuildProject": "../../../Project1/PizzaBox_gt_copy_1/Data/Data.csproj"
+      "path": "../Data/Data.csproj",
+      "msbuildProject": "../Data/Data.csproj"
     },
     "Domain/1.0.0": {
       "type": "project",
-      "path": "../../../Project1/PizzaBox_gt_copy_1/Domain/Domain.csproj",
-      "msbuildProject": "../../../Project1/PizzaBox_gt_copy_1/Domain/Domain.csproj"
+      "path": "../Domain/Domain.csproj",
+      "msbuildProject": "../Domain/Domain.csproj"
     }
   },
   "projectFileDependencyGroups": {
@@ -12999,11 +12999,11 @@
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "C:\\Users\\guill\\source\\repos\\PizzaWebApp\\PizzaWebApp\\PizzaWebApp.csproj",
+      "projectUniqueName": "C:\\Users\\guill\\source\\Tuyub_GuillermoProject1\\repos\\PizzaWebApp\\PizzaWebApp\\PizzaWebApp.csproj",
       "projectName": "PizzaWebApp",
-      "projectPath": "C:\\Users\\guill\\source\\repos\\PizzaWebApp\\PizzaWebApp\\PizzaWebApp.csproj",
+      "projectPath": "C:\\Users\\guill\\source\\Tuyub_GuillermoProject1\\repos\\PizzaWebApp\\PizzaWebApp\\PizzaWebApp.csproj",
       "packagesPath": "C:\\Users\\guill\\.nuget\\packages\\",
-      "outputPath": "C:\\Users\\guill\\source\\repos\\PizzaWebApp\\PizzaWebApp\\obj\\",
+      "outputPath": "C:\\Users\\guill\\source\\Tuyub_GuillermoProject1\\repos\\PizzaWebApp\\PizzaWebApp\\obj\\",
       "projectStyle": "PackageReference",
       "fallbackFolders": [
         "C:\\Program Files\\dotnet\\sdk\\NuGetFallbackFolder"
@@ -13022,11 +13022,11 @@
       "frameworks": {
         "netcoreapp2.2": {
           "projectReferences": {
-            "C:\\Users\\guill\\source\\Project1\\PizzaBox_gt_copy_1\\Data\\Data.csproj": {
-              "projectPath": "C:\\Users\\guill\\source\\Project1\\PizzaBox_gt_copy_1\\Data\\Data.csproj"
+            "C:\\Users\\guill\\source\\Tuyub_GuillermoProject1\\repos\\PizzaWebApp\\Data\\Data.csproj": {
+              "projectPath": "C:\\Users\\guill\\source\\Tuyub_GuillermoProject1\\repos\\PizzaWebApp\\Data\\Data.csproj"
             },
-            "C:\\Users\\guill\\source\\Project1\\PizzaBox_gt_copy_1\\Domain\\Domain.csproj": {
-              "projectPath": "C:\\Users\\guill\\source\\Project1\\PizzaBox_gt_copy_1\\Domain\\Domain.csproj"
+            "C:\\Users\\guill\\source\\Tuyub_GuillermoProject1\\repos\\PizzaWebApp\\Domain\\Domain.csproj": {
+              "projectPath": "C:\\Users\\guill\\source\\Tuyub_GuillermoProject1\\repos\\PizzaWebApp\\Domain\\Domain.csproj"
             }
           }
         }
