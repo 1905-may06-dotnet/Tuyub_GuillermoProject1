@@ -13,10 +13,14 @@ variables:
   buildConfiguration: 'Release'
   pathtosolution: 'repos/PizzaWebApp/'
   pathtoproject: 'repos/PizzaWebApp/PizzaWebApp'
+  pathtotest: 'repos/PizzaWebApp/Test'
 
 steps:
 - script: dotnet build --configuration $(buildConfiguration)
   displayName: 'dotnet build $(buildConfiguration)'
+  workingDirectory: '$(pathtosolution)'
+
+
 - task: DotNetCoreCLI@2
   inputs:
     command: 'publish'
