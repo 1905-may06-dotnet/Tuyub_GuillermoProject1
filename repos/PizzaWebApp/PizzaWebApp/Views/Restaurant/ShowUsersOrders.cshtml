@@ -1,84 +1,52 @@
-﻿@model IEnumerable<PizzaWebApp.Models.Indiv_pizza>
+﻿@model IEnumerable<PizzaWebApp.ViewModels.IndivPizza_Size_Crust_Ingredients>
 
 @{
     ViewData["Title"] = "ShowUsersOrders";
 }
 
-<h1>Existing Orders:</h1>
-
+<h1>ShowUsersOrders</h1>
 
 <table class="table">
     <thead>
         <tr>
             <th>
-                @Html.DisplayNameFor(model => model.Ingredient0FID)
+                @Html.DisplayNameFor(model => model.order.orderid)
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.Ingredient1FID)
+                @Html.DisplayNameFor(model => model.ingredients)
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.Ingredient2FID)
+                @Html.DisplayNameFor(model => model.crust.crust1)
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.Ingredient3FID)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Ingredient4FID)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.count)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.orderFID)
+                @Html.DisplayNameFor(model => model.size.size1)
             </th>
             <th>
                 @Html.DisplayNameFor(model => model.totalcost)
             </th>
-            <th>
-                @Html.DisplayNameFor(model => model.crust1)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.size1)
-            </th>
-            <th></th>
         </tr>
     </thead>
     <tbody>
-@foreach (var item in Model) {
-        <tr>
-            <td>
-                @Html.DisplayFor(modelItem => item.Ingredient0FID)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Ingredient1FID)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Ingredient2FID)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Ingredient3FID)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Ingredient4FID)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.count)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.orderFID)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.totalcost)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.crust1)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.size1)
-            </td>
-
-        </tr>
-}
-        <a asp-action="OrderPizza">Back to order confirmation</a>
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.order.orderid)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.ingredients)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.crust.crust1)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.size.size1)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.totalcost)
+                </td>
+            </tr>
+        }
+        <a asp-action="OrderPizza">Back to Submit</a>
     </tbody>
 </table>

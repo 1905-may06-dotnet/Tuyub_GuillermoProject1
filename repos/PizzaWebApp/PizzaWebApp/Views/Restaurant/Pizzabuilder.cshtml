@@ -1,58 +1,59 @@
-﻿@model PizzaWebApp.Models.Indiv_pizza
+﻿@model PizzaWebApp.ViewModels.PizzaStrings
+
 @{
     ViewData["Title"] = "Pizzabuilder";
 }
 
-<h1>Create your pizza</h1>
+<h1>Pizzabuilder</h1>
 
-<h4>Customize:</h4>
+<h4>PizzaStrings</h4>
 <hr />
 <div class="row">
     <div class="col-md-4">
-        <form asp-action="Pizzabuilder" method="post">
+        <form asp-action="Pizzabuilder">
             <div asp-validation-summary="ModelOnly" class="text-danger"></div>
             <div class="form-group">
-                <label asp-for="Ingredient0FID" class="control-label"></label>
-                <select asp-for="Ingredient0FID" asp-items="Model.ingredientlist" class="form-control"></select>
-                <span asp-validation-for="Ingredient0FID" class="text-danger"></span>
+                <label asp-for="ip.Ingredient0FID" class="control-label"></label>
+                <select asp-for="ing0" asp-items="Model.ingredientlist" class="form-control"></select>
+                <span asp-validation-for="ip.Ingredient0FID" class="text-danger"></span>
             </div>
             <div class="form-group">
-                <label asp-for="Ingredient1FID" class="control-label"></label>
-                <select asp-for="Ingredient1FID" asp-items="Model.ingredientlist" class="form-control"></select>
-                <span asp-validation-for="Ingredient1FID" class="text-danger"></span>
+                <label asp-for="ip.Ingredient1FID" class="control-label"></label>
+                <select asp-for="ing1" asp-items=" Model.ingredientlist" class="form-control"></select>
+                <span asp-validation-for="ip.Ingredient1FID" class="text-danger"></span>
             </div>
             <div class="form-group">
-                <label asp-for="Ingredient2FID" class="control-label"></label>
-                <select asp-for="Ingredient2FID" asp-items="Model.ingredientlist" class="form-control"></select>
-                <span asp-validation-for="Ingredient2FID" class="text-danger"></span>
+                <label asp-for="ip.Ingredient2FID" class="control-label"></label>
+                <select asp-for="ing2" asp-items="Model.ingredientlist" class="form-control"></select>
+                <span asp-validation-for="ip.Ingredient2FID" class="text-danger"></span>
             </div>
             <div class="form-group">
-                <label asp-for="Ingredient3FID" class="control-label"></label>
-                <select asp-for="Ingredient3FID" asp-items="Model.ingredientlist" class="form-control"></select>
-                <span asp-validation-for="Ingredient3FID" class="text-danger"></span>
+                <label asp-for="ip.Ingredient3FID" class="control-label"></label>
+                <select asp-for="ing3" asp-items="Model.ingredientlist" class="form-control"></select>
+                <span asp-validation-for="ip.Ingredient3FID" class="text-danger"></span>
             </div>
             <div class="form-group">
-                <label asp-for="Ingredient4FID" class="control-label"></label>
-                <select asp-for="Ingredient4FID" asp-items="Model.ingredientlist" class="form-control"></select>
-                <span asp-validation-for="Ingredient4FID" class="text-danger"></span>
+                <label asp-for="ip.Ingredient4FID" class="control-label"></label>   
+                <select asp-for="ing4" asp-items="Model.ip.ingredientlist" class="form-control"></select>
+                <span asp-validation-for="ip.Ingredient4FID" class="text-danger"></span>
             </div>
             <div class="form-group">
-                <label asp-for="crustFID" class="control-label"></label>
+                <label asp-for="ip.crustFID" class="control-label"></label>f
                 <select asp-for="crustFID" asp-items="Model.crustlist" class="form-control"></select>
-                <span asp-validation-for="crustFID" class="text-danger"></span>
+                <span asp-validation-for="ip.crustFID" class="text-danger"></span>
             </div>
             <div class="form-group">
-                <label asp-for="sizeFID" class="control-label"></label>
+                <label asp-for="ip.sizeFID" class="control-label"></label>
                 <select asp-for="sizeFID" asp-items="Model.sizelist" class="form-control"></select>
-                <span asp-validation-for="sizeFID" class="text-danger"></span>
+                <span asp-validation-for="ip.sizeFID" class="text-d     anger"></span>
             </div>
             <div class="form-group">
-                <label asp-for="count" class="control-label"></label>
-                <input asp-for="count" class="form-control" />
-                <span asp-validation-for="count" class="text-danger"></span>
+                <label asp-for="ip.count" class="control-label"></label>
+                <input asp-for="ip.count" class="form-control" />
+                <span asp-validation-for="ip.count" class="text-danger"></span>
             </div>
             <div class="form-group">
-                <input type="submit" value="Add to order" class="btn btn-primary" />
+                <input type="submit" value="Create" class="btn btn-primary" />
             </div>
         </form>
     </div>
