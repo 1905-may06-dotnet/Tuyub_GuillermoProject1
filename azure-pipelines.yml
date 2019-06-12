@@ -11,24 +11,48 @@ pool:
 
 variables:
   buildConfiguration: 'Release'
-  pathtosolution: 'repos/PizzaWebApp/'
-  pathtoproject: 'repos/PizzaWebApp/PizzaWebApp'
-  pathtotest: 'repos/PizzaWebApp/Test'
+  pathtosolution: 'PizzaWebApp'
+  pathtoproject: 'PizzaWebApp/PizzaWebapp'
+  pathtotest: 'PizzaWebApp/Test'
 
 steps:
+- task: SonarCloudPrepare@1
+  inputs:
+    SonarCloud: 'SonarCloudConn'
+    organization: 'frozenbeans-github'
+    scannerMode: 'MSBuild'
+    projectKey: 'FrozenBeans_copyrepo'
+    projectName: 'PizzaBoxGT'
+  displayName: 'Sonar Prepare Analysis'
+
 - script: dotnet build --configuration $(buildConfiguration)
-  workingDirectory: '$(pathtosolution)'
+  workingDirectory: $(pathtosolution)
   displayName: 'dotnet build $(buildConfiguration)'
 
+# BASIC TEST
+- script: dotnet test
+   --configuration $(buildConfiguration)
+   --logger trx
+   --no-build
+   --results-directory $(Build.ArtifactStagingDirectory)/test/
+    /p:CollectCoverage=true
+    /p:CoverletOutputFormat=opencover
+    /p:CoverletOutput='$(Build.ArtifactStagingDirectory)/coverage/'
+  workingDirectory: $(pathtosolution)
+  displayName: 'dotnet Test'
 
+- task: SonarCloudAnalyze@1
+
+- task: SonarCloudPublish@1
+  inputs:
+    pollingTimeoutSec: '300'
+
+#PUBLISH
 - task: DotNetCoreCLI@2
   inputs:
-    command: 'publish'
-    projects: '$(pathtoproject)/*.csproj'
-- task: AzureRmWebAppDeployment@4
-  inputs:
-    ConnectionType: 'AzureRM'
-    azureSubscription: 'Free Trial(dd853a7f-c120-49c6-8b66-7eaabab7689e)'
-    appType: 'webApp'
-    WebAppName: 'PizzaBoxGT'
-    packageForLinux: '$(System.DefaultWorkingDirectory)/**/*.zip'
+    command: publish
+    publishWebProjects: True
+    arguments: '--configuration $(BuildConfiguration) --output $(Build.ArtifactStagingDirectory)'
+    zipAfterPublish: True
+- task: PublishBuildArtifacts@1
+
