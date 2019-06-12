@@ -11,9 +11,9 @@ pool:
 
 variables:
   buildConfiguration: 'Release'
-  pathtosolution: 'PizzaWebApp'
-  pathtoproject: 'PizzaWebApp/PizzaWebapp'
-  pathtotest: 'PizzaWebApp/Test'
+  pathtosolution: 'repos/PizzaWebApp/'
+  pathtoproject: 'repos/PizzaWebApp/PizzaWebApp'
+  pathtotest: 'repos/PizzaWebApp/Test'
 
 steps:
 - task: SonarCloudPrepare@1
